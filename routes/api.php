@@ -18,12 +18,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/expenses', 'ExpenseController@index')->name('expenses.all');
+// Route::get('/expenses', 'ExpenseController@index')->name('expenses.all');
 
-Route::post('/expenses', 'ExpenseController@store')->name('expenses.store');
+// Route::post('/expenses', 'ExpenseController@store')->name('expenses.store');
 
-Route::get('/expenses/{expense}', 'ExpenseController@show')->name('expenses.show');
+// Route::get('/expenses/{expense}', 'ExpenseController@show')->name('expenses.show');
 
-Route::put('/expenses/{expense}', 'ExpenseController@update')->name('expenses.update');
+// Route::put('/expenses/{expense}', 'ExpenseController@update')->name('expenses.update');
 
-Route::delete('/expenses/{expense}', 'ExpenseController@destory')->name('expenses.destroy');
+// Route::delete('/expenses/{expense}', 'ExpenseController@destory')->name('expenses.destroy');
+
+// Route::prefix('auth')->group(function () {
+//     Route::get('/', '');
+// });
+
+Route::post('login', 'AuthController@login');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('logout', 'AuthController@logout');
+    Route::get('users', 'UserController@index');
+});
